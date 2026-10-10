@@ -1,0 +1,22 @@
+# dsh-plugin-opencode bundle patch.
+#
+# The row id (`llm-opencode`) is the settings namespace the Models page uses
+# for this provider's credential field, so it stays stable. The row name is
+# the package's own npm name, resolved from the installed package exactly
+# like every official bundle row — no file:/// URLs, no absolute paths.
+#
+# `provider` is "opencode-free": that id must NOT collide with the harness's
+# built-in keyed OpenCode Zen provider ("opencode").
+- insert:
+    - id: llm-opencode
+      name: dsh-plugin-opencode
+      config:
+        provider: opencode-free
+        displayName: OpenCode Zen (Free)
+        # 'build' is the default because the read-only 'plan' agent turns
+        # "install this for me" into a description of the steps rather than
+        # an action.
+        agent: build
+        # Diagnostics are opt-in: set `debugLogPath` through an id-targeted
+        # config override in the profile patch to get a breadcrumb trail.
+        # Unset = silent, which is right for distribution.
